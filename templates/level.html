@@ -2,20 +2,21 @@
 {% block title %}{{ level.title }} — AWS Quest{% endblock %}
 {% block content %}
 <div class="level-shell">
-  <a class="back-link" href="/">← Back to map</a>
+  <a class="back-link" href="/"><span class="emoji" aria-hidden="true">←</span> Return to quest map</a>
 
-  <section class="lesson-header">
-    <div class="lesson-icon"><span class="emoji emoji-hero" aria-hidden="true">{{ level.emoji }}</span></div>
+  <section class="lesson-header level-hero">
+    <div class="lesson-icon level-core"><span class="emoji emoji-hero" aria-hidden="true">{{ level.emoji }}</span></div>
     <div>
-      <span class="eyebrow">LEVEL ADVENTURE</span>
+      <span class="eyebrow"><span class="status-dot"></span> LEVEL {{ level.id|upper }} • MISSION ACTIVE</span>
       <h1>{{ level.title }}</h1>
       <p>{{ level.description }}</p>
     </div>
+    <div class="level-node" aria-hidden="true"><span>{{ level.emoji }}</span><i></i><b></b></div>
   </section>
 
   {% if level.id == "s3" %}
-  <section class="lesson-card intro-card">
-    <div class="story-label"><span class="emoji" aria-hidden="true">📖</span> SHOP STORY</div>
+  <section class="lesson-card intro-card mission-card">
+    <div class="mission-top"><div class="story-label"><span class="emoji" aria-hidden="true">📖</span> MISSION BRIEF</div><span class="mission-reward">+50 XP</span></div>
     <h2>The Storage Warehouse</h2>
     <p>Your online shop needs somewhere to store product images, receipts, documents and other files.</p>
     <div class="concept-grid">
@@ -23,19 +24,19 @@
       <div><b><span class="emoji" aria-hidden="true">🪣</span> Buckets</b><span>A bucket is a container for objects.</span></div>
       <div><b><span class="emoji" aria-hidden="true">📦</span> Objects</b><span>Your product image, receipt or video can be an object.</span></div>
     </div>
-    <button class="button primary wide" onclick="startQuiz()">I’m ready →</button>
+    <button class="button primary wide" onclick="startQuiz()"><span class="emoji" aria-hidden="true">▶</span> Enter warehouse</button>
   </section>
 
-  <section id="quiz" class="lesson-card hidden">
+  <section id="quiz" class="lesson-card challenge-card hidden">
     <div class="lesson-progress"><span id="quiz-progress"></span></div>
-    <div class="question-meta">QUESTION <span id="question-number">1</span> / 5</div>
+    <div class="question-meta"><span class="emoji" aria-hidden="true">🎯</span> OBJECTIVE <span id="question-number">1</span> / 5</div>
     <h2 id="question-text"></h2>
     <div id="answers" class="answers"></div>
     <div id="feedback" class="feedback hidden"></div>
-    <button id="next-question" class="button primary wide hidden" onclick="nextQuestion()">Continue →</button>
+    <button id="next-question" class="button primary wide hidden" onclick="nextQuestion()">Next objective <span class="emoji" aria-hidden="true">→</span></button>
   </section>
 
-  <section id="minigame" class="lesson-card hidden">
+  <section id="minigame" class="lesson-card challenge-card hidden">
     <div class="game-top"><span class="eyebrow">BONUS CHALLENGE</span><span>+20 XP</span></div>
     <h2><span class="emoji" aria-hidden="true">📦</span> Sort the Warehouse</h2>
     <p>Put each shop item in the service that fits its job. Tap an item, then choose a category.</p>
@@ -49,23 +50,23 @@
     <div id="game-message" class="game-message"></div>
   </section>
   {% elif level.id == "final" %}
-  <section class="lesson-card intro-card">
-    <div class="story-label"><span class="emoji" aria-hidden="true">👑</span> FINAL CHALLENGE</div>
+  <section class="lesson-card intro-card mission-card">
+    <div class="mission-top"><div class="story-label"><span class="emoji" aria-hidden="true">👑</span> FINAL MISSION</div><span class="mission-reward">+100 XP</span></div>
     <h2>Build the Shop</h2>
     <p>Assemble the architecture by matching each shop problem to the AWS service that fits.</p>
-    <button class="button primary wide" onclick="startFinal()">Build it →</button>
+    <button class="button primary wide" onclick="startFinal()"><span class="emoji" aria-hidden="true">⚡</span> Launch final mission</button>
   </section>
-  <section id="final-game" class="lesson-card hidden">
+  <section id="final-game" class="lesson-card challenge-card hidden">
     <div class="lesson-progress"><span id="final-progress"></span></div>
-    <div class="question-meta">ARCHITECTURE CHECK <span id="final-number">1</span> / 5</div>
+    <div class="question-meta"><span class="emoji" aria-hidden="true">🧩</span> SYSTEM CHECK <span id="final-number">1</span> / 5</div>
     <h2 id="final-question"></h2>
     <div id="final-answers" class="answers"></div>
     <div id="final-feedback" class="feedback hidden"></div>
-    <button id="final-next" class="button primary wide hidden" onclick="nextFinal()">Continue →</button>
+    <button id="final-next" class="button primary wide hidden" onclick="nextFinal()">Connect next node <span class="emoji" aria-hidden="true">→</span></button>
   </section>
   {% else %}
-  <section class="lesson-card intro-card">
-    <div class="story-label"><span class="emoji" aria-hidden="true">📖</span> SHOP STORY</div>
+  <section class="lesson-card intro-card mission-card">
+    <div class="mission-top"><div class="story-label"><span class="emoji" aria-hidden="true">📖</span> MISSION BRIEF</div><span class="mission-reward">+50 XP</span></div>
     <h2>{{ level.title.split(" — ")[1] }}</h2>
     <p>{{ level.description }}</p>
     <div class="concept-grid">
@@ -87,16 +88,16 @@
       <div><b><span class="emoji" aria-hidden="true">🔗</span> Relationships</b><span>Connect related data, such as customers and orders.</span></div>
       {% endif %}
     </div>
-    <button class="button primary wide" onclick="startQuiz()">Start lesson →</button>
+    <button class="button primary wide" onclick="startQuiz()"><span class="emoji" aria-hidden="true">▶</span> Start mission</button>
   </section>
 
-  <section id="quiz" class="lesson-card hidden">
+  <section id="quiz" class="lesson-card challenge-card hidden">
     <div class="lesson-progress"><span id="quiz-progress"></span></div>
-    <div class="question-meta">QUESTION <span id="question-number">1</span> / 5</div>
+    <div class="question-meta"><span class="emoji" aria-hidden="true">🎯</span> OBJECTIVE <span id="question-number">1</span> / 5</div>
     <h2 id="question-text"></h2>
     <div id="answers" class="answers"></div>
     <div id="feedback" class="feedback hidden"></div>
-    <button id="next-question" class="button primary wide hidden" onclick="nextQuestion()">Continue →</button>
+    <button id="next-question" class="button primary wide hidden" onclick="nextQuestion()">Next objective <span class="emoji" aria-hidden="true">→</span></button>
   </section>
   {% endif %}
 
