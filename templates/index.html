@@ -12,12 +12,22 @@
     </div>
   </div>
   <div class="shop-scene" aria-label="Illustration of an online shop in the cloud">
+    <div class="scene-grid" aria-hidden="true"></div>
+    <div class="scene-cloud scene-cloud-a" aria-hidden="true">☁️</div>
+    <div class="scene-cloud scene-cloud-b" aria-hidden="true">☁️</div>
     <div class="sun">☀️</div>
+    <div class="scene-badge"><span class="status-dot"></span> SHOP ONLINE</div>
+    <div class="island" aria-hidden="true">
+      <div class="island-top"></div>
+      <div class="island-side"></div>
+    </div>
     <div class="store">
       <div class="store-sign">THE CLOUD SHOP</div>
       <div class="store-window">🛍️　📦　💻</div>
       <div class="store-door">🚪</div>
     </div>
+    <div class="scene-orb orb-one" aria-hidden="true">◆</div>
+    <div class="scene-orb orb-two" aria-hidden="true">✦</div>
     <div class="delivery">📦</div>
   </div>
 </section>
@@ -31,7 +41,7 @@
     <div class="map-progress"><span id="map-progress-bar"></span></div>
   </div>
 
-  <div class="quest-map">
+  <div class="quest-map quest-map-3d">
     {% for level in levels %}
     <article class="level-card {% if loop.index == 1 %}active{% endif %}" data-level="{{ level.id }}" data-index="{{ loop.index0 }}">
       <div class="level-icon">{{ level.emoji }}</div>
