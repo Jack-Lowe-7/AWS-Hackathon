@@ -13,17 +13,23 @@
 <body>
   <div class="cloud cloud-a">☁️</div>
   <div class="cloud cloud-b">☁️</div>
+  <div class="cloud-core" aria-hidden="true">
+    <span class="core-orbit core-orbit-a"><i>◆</i></span>
+    <span class="core-orbit core-orbit-b"><i>◆</i></span>
+    <span class="core-orbit core-orbit-c"><i>◆</i></span>
+    <span class="core-spark">✦</span>
+  </div>
   <header class="topbar">
     <a class="brand" href="/">
       <span class="brand-mark">☁️</span>
       <span>AWS <b>QUEST</b></span>
     </a>
     <div id="hud" class="hud" aria-label="Player progress">
-      <span class="hud-pill">⭐ <b id="hud-level">1</b></span>
-      <span class="hud-pill"><span class="xp-dot"></span> <b id="hud-xp">0</b> XP</span>
-      <span class="hud-pill">💎 <b id="hud-gems">135</b></span>
-      <span class="hud-pill">❤️ <b id="hud-hearts">5</b></span>
-      <span class="hud-pill">🔥 <b id="hud-streak">1</b></span>
+      <span class="hud-pill"><span class="hud-emoji" aria-hidden="true">⭐</span> <b id="hud-level">1</b></span>
+      <span class="hud-pill hud-xp-pill"><span class="xp-dot"></span> <b id="hud-xp">0</b> XP <span class="xp-meter" aria-hidden="true"><span id="hud-xp-fill"></span></span></span>
+      <span class="hud-pill"><span class="hud-emoji" aria-hidden="true">💎</span> <b id="hud-gems">135</b></span>
+      <span class="hud-pill"><span class="hud-emoji" aria-hidden="true">❤️</span> <b id="hud-hearts">5</b></span>
+      <span class="hud-pill"><span class="hud-emoji" aria-hidden="true">🔥</span> <b id="hud-streak">1</b></span>
     </div>
   </header>
   <main>{% block content %}{% endblock %}</main>
