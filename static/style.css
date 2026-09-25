@@ -1,5 +1,5 @@
 :root{
-  --ink:#1b2733;--muted:#5d6878;--paper:#f5f7f3;--white:#fff;--amazon:#131921;--amazon-soft:#1d2938;--orange:#ff9900;--orange-deep:#e68b00;--orange-soft:#fff1d6;--green-soft:#eaf9db;--green:#58cc02;--yellow:#ffd84d;--blue:#7ec9ff;--line:#dfe7df;--shadow:0 16px 36px rgba(19,34,24,.08);--radius:18px;--font-sans:"Open Sans","Segoe UI",Arial,sans-serif
+  --ink:#1b2733;--muted:#5d6878;--paper:#f5f7f3;--white:#fff;--amazon:#131921;--amazon-soft:#1d2938;--orange:#ff9900;--orange-deep:#e68b00;--orange-soft:#fff1d6;--green-soft:#eaf9db;--green:#58cc02;--yellow:#ffd84d;--blue:#7ec9ff;--line:#dfe7df;--shadow:0 16px 36px rgba(19,34,24,.08);--radius:18px;--red:#d64c4c;--font-sans:"Open Sans","Segoe UI",Arial,sans-serif
 }
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-sans);line-height:1.5;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 h1,h2,h3,p{margin-top:0}h1,h2,h3,.brand{font-family:var(--font-sans);letter-spacing:-.02em}.hidden{display:none!important}
