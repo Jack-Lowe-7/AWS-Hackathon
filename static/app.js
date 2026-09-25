@@ -45,11 +45,14 @@ async function loadProgress() {
 
 function updateHUD(s) {
   if (!s) return;
-  document.getElementById("hud-xp").textContent = s.xp || 0;
+  const xp = s.xp || 0;
+  document.getElementById("hud-xp").textContent = xp;
   document.getElementById("hud-gems").textContent = s.gems ?? 135;
   document.getElementById("hud-hearts").textContent = s.hearts ?? 5;
   document.getElementById("hud-streak").textContent = s.streak ?? 1;
-  document.getElementById("hud-level").textContent = Math.max(1, Math.floor((s.xp || 0) / 100) + 1);
+  document.getElementById("hud-level").textContent = Math.max(1, Math.floor(xp / 100) + 1);
+  const fill = document.getElementById("hud-xp-fill");
+  if (fill) fill.style.width = `${xp % 100}%`;
 }
 
 function saveLocal(s) {
@@ -109,7 +112,16 @@ function resetGuest() {
   location.reload();
 }
 
-let qIndex = 0, score = 0, answered = false;
+let qIndex = 0, score = 0, combo = 0, answered = false;
+
+function updateCombo(value, message) {
+  combo = value;
+  const count = document.getElementById("combo-count");
+  const copy = document.getElementById("combo-message");
+  if (count) count.textContent = combo;
+  if (copy) copy.textContent = message;
+  if (count) count.classList.toggle("combo-hot", combo >= 2);
+}
 
 function startQuiz() {
   const intro = document.querySelector(".intro-card");
@@ -135,6 +147,7 @@ function renderQuestion() {
   });
   document.getElementById("feedback").classList.add("hidden");
   document.getElementById("next-question").classList.add("hidden");
+  updateCombo(combo, combo ? `${combo} objectives connected.` : "Answer correctly to build your streak.");
 }
 
 async function answerQuestion(choice) {
@@ -147,12 +160,14 @@ async function answerQuestion(choice) {
   const feedback = document.getElementById("feedback");
   if (choice === q.answer) {
     score++;
+    updateCombo(combo + 1, combo >= 2 ? "Combo bonus active!" : "Nice hit. Keep the streak alive.");
     buttons[choice].classList.add("selected-correct");
     feedback.innerHTML = `<b>✅ Correct!</b><span>${q.why}</span>`;
     feedback.className = "feedback correct-feedback";
     await reward(10, 5);
     toast("+10 XP  +5 💎");
   } else {
+    updateCombo(0, "Combo dropped. Reset and try the next objective.");
     buttons[choice].classList.add("incorrect");
     const s = window.playerState || {};
     s.hearts = Math.max(0, (s.hearts ?? 5) - 1);
