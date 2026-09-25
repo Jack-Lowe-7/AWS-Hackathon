@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% block title %}{{ level.title }} — AWS Quest{% endblock %}
+{% block content %}
+<div class="level-shell">
+  <a class="back-link" href="/">← Back to map</a>
+
+  <section class="lesson-header">
+    <div class="lesson-icon">{{ level.emoji }}</div>
+    <div>
+      <span class="eyebrow">LEVEL ADVENTURE</span>
+      <h1>{{ level.title }}</h1>
+      <p>{{ level.description }}</p>
+    </div>
+  </section>
+
+  {% if level.id == "s3" %}
+  <section class="lesson-card intro-card">
+    <div class="story-label">📖 SHOP STORY</div>
+    <h2>The Storage Warehouse</h2>
+    <p>Your online shop needs somewhere to store product images, receipts, documents and other files.</p>
+    <div class="concept-grid">
+      <div><b>🗄️ Object storage</b><span>S3 stores objects such as files and their metadata.</span></div>
+      <div><b>🪣 Buckets</b><span>A bucket is a container for objects.</span></div>
+      <div><b>📦 Objects</b><span>Your product image, receipt or video can be an object.</span></div>
+    </div>
+    <button class="button primary wide" onclick="startQuiz()">I’m ready →</button>
+  </section>
+
+  <section id="quiz" class="lesson-card hidden">
+    <div class="lesson-progress"><span id="quiz-progress"></span></div>
+    <div class="question-meta">QUESTION <span id="question-number">1</span> / 5</div>
+    <h2 id="question-text"></h2>
+    <div id="answers" class="answers"></div>
+    <div id="feedback" class="feedback hidden"></div>
+    <button id="next-question" class="button primary wide hidden" onclick="nextQuestion()">Continue →</button>
+  </section>
+
+  <section id="minigame" class="lesson-card hidden">
+    <div class="game-top"><span class="eyebrow">BONUS CHALLENGE</span><span>+20 XP</span></div>
+    <h2>📦 Sort the Warehouse</h2>
+    <p>Put each shop item in the service that fits its job. Tap an item, then choose a category.</p>
+    <div id="warehouse-items" class="warehouse-items"></div>
+    <div class="drop-categories">
+      <button class="drop-zone" data-service="s3">🗄️ <b>S3</b><small>Storage</small></button>
+      <button class="drop-zone" data-service="ec2">💻 <b>EC2</b><small>Compute</small></button>
+      <button class="drop-zone" data-service="lambda">⚡ <b>Lambda</b><small>Code / automation</small></button>
+      <button class="drop-zone" data-service="iam">🔐 <b>IAM</b><small>Permissions</small></button>
+    </div>
+    <div id="game-message" class="game-message"></div>
+  </section>
+  {% elif level.id == "final" %}
+  <section class="lesson-card intro-card">
+    <div class="story-label">👑 FINAL CHALLENGE</div>
+    <h2>Build the Shop</h2>
+    <p>Assemble the architecture by matching each shop problem to the AWS service that fits.</p>
+    <button class="button primary wide" onclick="startFinal()">Build it →</button>
+  </section>
+  <section id="final-game" class="lesson-card hidden">
+    <div class="lesson-progress"><span id="final-progress"></span></div>
+    <div class="question-meta">ARCHITECTURE CHECK <span id="final-number">1</span> / 5</div>
+    <h2 id="final-question"></h2>
+    <div id="final-answers" class="answers"></div>
+    <div id="final-feedback" class="feedback hidden"></div>
+    <button id="final-next" class="button primary wide hidden" onclick="nextFinal()">Continue →</button>
+  </section>
+  {% else %}
+  <section class="lesson-card intro-card">
+    <div class="story-label">📖 SHOP STORY</div>
+    <h2>{{ level.title.split(" — ")[1] }}</h2>
+    <p>{{ level.description }}</p>
+    <div class="concept-grid">
+      {% if level.id == "ec2" %}
+      <div><b>💻 Compute</b><span>Resources that run application workloads.</span></div>
+      <div><b>🖥️ Virtual servers</b><span>EC2 provides virtual servers called instances.</span></div>
+      <div><b>📈 Scaling</b><span>Adjust capacity as demand changes.</span></div>
+      {% elif level.id == "iam" %}
+      <div><b>👤 Users & roles</b><span>Identities and roles can be granted permissions.</span></div>
+      <div><b>🛡️ Authorization</b><span>Permissions determine what an identity may do.</span></div>
+      <div><b>🔎 Least privilege</b><span>Give only the access required for the task.</span></div>
+      {% elif level.id == "lambda" %}
+      <div><b>⚡ Functions</b><span>Run code without managing the underlying servers.</span></div>
+      <div><b>🎯 Events</b><span>Events can trigger processing.</span></div>
+      <div><b>🔗 Workflows</b><span>For example: S3 → Lambda → process image.</span></div>
+      {% elif level.id == "aurora" %}
+      <div><b>🗃️ Data</b><span>Applications need structured data they can retrieve and update.</span></div>
+      <div><b>📋 Records</b><span>Individual customers and orders can be records.</span></div>
+      <div><b>🔗 Relationships</b><span>Connect related data, such as customers and orders.</span></div>
+      {% endif %}
+    </div>
+    <button class="button primary wide" onclick="startQuiz()">Start lesson →</button>
+  </section>
+
+  <section id="quiz" class="lesson-card hidden">
+    <div class="lesson-progress"><span id="quiz-progress"></span></div>
+    <div class="question-meta">QUESTION <span id="question-number">1</span> / 5</div>
+    <h2 id="question-text"></h2>
+    <div id="answers" class="answers"></div>
+    <div id="feedback" class="feedback hidden"></div>
+    <button id="next-question" class="button primary wide hidden" onclick="nextQuestion()">Continue →</button>
+  </section>
+  {% endif %}
+
+  <section id="results" class="lesson-card results hidden">
+    <div class="confetti">🎉 ✨ 🎊</div>
+    <div class="result-icon">🏆</div>
+    <span class="eyebrow">QUEST COMPLETE</span>
+    <h2 id="result-title">Shop upgraded!</h2>
+    <p id="result-copy"></p>
+    <div class="reward-row">
+      <div><span>XP</span><b id="result-xp">+50</b></div>
+      <div><span>GEMS</span><b id="result-gems">+25</b></div>
+      <div><span>SCORE</span><b id="result-score">100%</b></div>
+    </div>
+    <a class="button primary wide" href="/" id="result-button">Back to map →</a>
+  </section>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+const LEVEL_ID = {{ level.id|tojson }};
+const QUESTIONS = {{ questions|tojson }};
+const FINAL_QUESTIONS = {{ final_questions|tojson }};
+document.addEventListener("DOMContentLoaded", loadProgress);
+</script>
+{% endblock %}

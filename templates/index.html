@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}AWS Quest — Build Your Online Shop{% endblock %}
+{% block content %}
+<section class="hero">
+  <div>
+    <div class="eyebrow">☁️ CLOUD ADVENTURE • BEGINNER FRIENDLY</div>
+    <h1>Build your<br><span>online shop.</span></h1>
+    <p>Learn AWS by solving problems, earning XP and keeping your fictional store online.</p>
+    <div class="hero-actions">
+      <a class="button primary" href="/level/s3">▶ Start Quest</a>
+      <button class="button ghost" onclick="resetGuest()">↻ Reset guest</button>
+    </div>
+  </div>
+  <div class="shop-scene" aria-label="Illustration of an online shop in the cloud">
+    <div class="sun">☀️</div>
+    <div class="store">
+      <div class="store-sign">THE CLOUD SHOP</div>
+      <div class="store-window">🛍️　📦　💻</div>
+      <div class="store-door">🚪</div>
+    </div>
+    <div class="delivery">📦</div>
+  </div>
+</section>
+
+<section class="quest-section">
+  <div class="section-heading">
+    <div>
+      <span class="eyebrow">YOUR ADVENTURE</span>
+      <h2>AWS Quest Map</h2>
+    </div>
+    <div class="map-progress"><span id="map-progress-bar"></span></div>
+  </div>
+
+  <div class="quest-map">
+    {% for level in levels %}
+    <article class="level-card {% if loop.index == 1 %}active{% endif %}" data-level="{{ level.id }}" data-index="{{ loop.index0 }}">
+      <div class="level-icon">{{ level.emoji }}</div>
+      <div class="level-copy">
+        <span class="level-number">LEVEL {{ loop.index }}</span>
+        <h3>{{ level.title }}</h3>
+        <p>{{ level.description }}</p>
+      </div>
+      <div class="level-state" id="state-{{ level.id }}">🔒</div>
+      <a class="level-start" id="start-{{ level.id }}" href="/level/{{ level.id }}">Play</a>
+    </article>
+    {% if not loop.last %}<div class="map-arrow">↓</div>{% endif %}
+    {% endfor %}
+  </div>
+</section>
+
+<section class="why-card">
+  <div class="why-icon">🎮</div>
+  <div><h2>Learn by doing</h2><p>Every mistake teaches you why. Every completed challenge moves your shop closer to going live.</p></div>
+  <div class="mini-stats"><span>5 AWS services</span><span>30+ challenges</span><span>1 shop</span></div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script>
+document.addEventListener("DOMContentLoaded", async () => {
+  await loadProgress();
+  updateMap();
+});
+</script>
+{% endblock %}

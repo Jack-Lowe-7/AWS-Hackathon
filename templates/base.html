@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="AWS Quest — a playful AWS learning adventure.">
+  <title>{% block title %}AWS Quest{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="cloud cloud-a">☁️</div>
+  <div class="cloud cloud-b">☁️</div>
+  <header class="topbar">
+    <a class="brand" href="/">
+      <span class="brand-mark">☁️</span>
+      <span>AWS <b>QUEST</b></span>
+    </a>
+    <div id="hud" class="hud" aria-label="Player progress">
+      <span class="hud-pill">⭐ <b id="hud-level">1</b></span>
+      <span class="hud-pill"><span class="xp-dot"></span> <b id="hud-xp">0</b> XP</span>
+      <span class="hud-pill">💎 <b id="hud-gems">135</b></span>
+      <span class="hud-pill">❤️ <b id="hud-hearts">5</b></span>
+      <span class="hud-pill">🔥 <b id="hud-streak">1</b></span>
+    </div>
+  </header>
+  <main>{% block content %}{% endblock %}</main>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>
