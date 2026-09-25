@@ -8,6 +8,7 @@
     <p>Learn AWS by solving problems, earning XP and keeping your fictional store online.</p>
     <div class="hero-actions">
       <a class="button primary" href="/level/s3">▶ Start Quest</a>
+      <button id="landing-music-toggle" class="button ghost" type="button" onclick="toggleLandingMusic()">♫ Play music</button>
       <button class="button ghost" onclick="resetGuest()">↻ Reset guest</button>
     </div>
   </div>
@@ -21,6 +22,8 @@
     <div class="delivery">📦</div>
   </div>
 </section>
+
+<audio id="landing-audio" class="audio-player" src="{{ url_for('audio_file', audio_name='lobby') }}" title="Landing page music" aria-label="Landing page music" autoplay loop preload="auto"></audio>
 
 <section class="quest-section">
   <div class="section-heading">

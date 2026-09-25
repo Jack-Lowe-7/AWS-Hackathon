@@ -1,5 +1,28 @@
 const PLAYER_KEY = "awsquest_player_id";
 const PLAYER_STATE_KEY = "awsquest_guest_state";
+let buttonSoundContext = null;
+
+function playButtonSound() {
+  buttonSoundContext ||= new (window.AudioContext || window.webkitAudioContext)();
+  const oscillator = buttonSoundContext.createOscillator();
+  const gain = buttonSoundContext.createGain();
+  const now = buttonSoundContext.currentTime;
+  oscillator.type = "sine";
+  oscillator.frequency.setValueAtTime(520, now);
+  oscillator.frequency.exponentialRampToValueAtTime(760, now + 0.06);
+  gain.gain.setValueAtTime(0.0001, now);
+  gain.gain.exponentialRampToValueAtTime(0.08, now + 0.01);
+  gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.09);
+  oscillator.connect(gain);
+  gain.connect(buttonSoundContext.destination);
+  oscillator.start(now);
+  oscillator.stop(now + 0.1);
+}
+
+document.addEventListener("click", event => {
+  const button = event.target.closest("button");
+  if (button && !button.disabled) playButtonSound();
+});
 
 function playerId() {
   let id = localStorage.getItem(PLAYER_KEY);
@@ -92,7 +115,69 @@ function resetGuest() {
   location.reload();
 }
 
+const QUESTION_TIME_LIMIT = 90;
 let qIndex = 0, score = 0, answered = false;
+let questionTimer = null;
+let questionTimeLeft = QUESTION_TIME_LIMIT;
+let landingMusicPlaying = false;
+
+function audioCommand(audioId, command, restart = false) {
+  const audio = document.getElementById(audioId);
+  if (!audio) return;
+  if (command === "play") {
+    if (restart) audio.currentTime = 0;
+    audio.play().catch(() => {});
+  } else {
+    audio.pause();
+  }
+}
+
+function startQuizMusic() {
+  audioCommand("quiz-audio", "play", true);
+}
+
+function stopQuizMusic() {
+  audioCommand("quiz-audio", "pause");
+}
+
+function toggleLandingMusic() {
+  const audio = document.getElementById("landing-audio");
+  if (!audio) return;
+  landingMusicPlaying = audio.paused;
+  audioCommand("landing-audio", landingMusicPlaying ? "play" : "pause");
+  const button = document.getElementById("landing-music-toggle");
+  if (button) button.textContent = landingMusicPlaying ? "♫ Pause music" : "♫ Play music";
+}
+
+function updateQuestionTimer() {
+  const timer = document.getElementById("question-timer");
+  if (!timer) return;
+  const minutes = Math.floor(questionTimeLeft / 60);
+  const seconds = String(questionTimeLeft % 60).padStart(2, "0");
+  timer.textContent = `${minutes}:${seconds}`;
+  timer.classList.toggle("urgent", questionTimeLeft <= 15);
+}
+
+function stopQuestionTimer() {
+  if (questionTimer) clearInterval(questionTimer);
+  questionTimer = null;
+  stopQuizMusic();
+}
+
+function startQuestionTimer(onExpire) {
+  stopQuestionTimer();
+  questionTimeLeft = QUESTION_TIME_LIMIT;
+  updateQuestionTimer();
+  startQuizMusic();
+  questionTimer = setInterval(() => {
+    questionTimeLeft--;
+    updateQuestionTimer();
+    if (questionTimeLeft <= 0) {
+      stopQuestionTimer();
+      onExpire();
+    }
+  }, 1000);
+}
 
 function startQuiz() {
   const intro = document.querySelector(".intro-card");
@@ -118,11 +203,13 @@ function renderQuestion() {
   });
   document.getElementById("feedback").classList.add("hidden");
   document.getElementById("next-question").classList.add("hidden");
+  startQuestionTimer(() => answerQuestion(-1));
 }
 
 async function answerQuestion(choice) {
   if (answered) return;
   answered = true;
+  stopQuestionTimer();
   const q = QUESTIONS[qIndex];
   const buttons = [...document.querySelectorAll(".answer-button")];
   buttons.forEach(b => b.disabled = true);
@@ -136,11 +223,13 @@ async function answerQuestion(choice) {
     await reward(10, 5);
     toast("+10 XP  +5 💎");
   } else {
-    buttons[choice].classList.add("incorrect");
+    if (choice >= 0) buttons[choice].classList.add("incorrect");
     const s = window.playerState || {};
     s.hearts = Math.max(0, (s.hearts ?? 5) - 1);
     saveLocal(s);
-    feedback.innerHTML = `<b>❌ Not quite.</b><span>${q.why}</span>`;
+    feedback.innerHTML = choice < 0
+      ? `<b>⏱️ Time's up.</b><span>${q.why}</span>`
+      : `<b>❌ Not quite.</b><span>${q.why}</span>`;
     feedback.className = "feedback incorrect-feedback";
     try { await fetch("/api/player/rewards",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({player_id:playerId(),xp:0,gems:0,hearts:s.hearts})}); } catch {}
     toast("You lost a heart — keep learning!");
@@ -198,6 +287,7 @@ async function sortItem(service) {
 }
 
 async function finishLevel() {
+  stopQuestionTimer();
   const results = document.getElementById("results");
   ["quiz","minigame","final-game"].forEach(id => document.getElementById(id)?.classList.add("hidden"));
   results.classList.remove("hidden");
@@ -242,13 +332,15 @@ function renderFinal() {
   });
   document.getElementById("final-feedback").classList.add("hidden");
   document.getElementById("final-next").classList.add("hidden");
+  startQuestionTimer(() => answerFinal(null, null, q[1]));
 }
 async function answerFinal(choice, btn, correct) {
   if(fAnswered)return; fAnswered=true;
+  stopQuestionTimer();
   document.querySelectorAll("#final-answers .answer-button").forEach(x=>x.disabled=true);
   const fb=document.getElementById("final-feedback");
   if(choice===correct){fScore++;btn.classList.add("correct");fb.innerHTML=`<b>✅ Connected!</b><span>${correct} fits this part of the architecture.</span>`;fb.className="feedback correct-feedback";await reward(15,5);}
-  else{btn.classList.add("incorrect");fb.innerHTML=`<b>❌ Not quite.</b><span>This scenario is matched with ${correct} in this quest.</span>`;fb.className="feedback incorrect-feedback";}
+  else{if(btn)btn.classList.add("incorrect");fb.innerHTML=choice === null ? `<b>⏱️ Time's up.</b><span>This scenario is matched with ${correct} in this quest.</span>` : `<b>❌ Not quite.</b><span>This scenario is matched with ${correct} in this quest.</span>`;fb.className="feedback incorrect-feedback";}
   fb.classList.remove("hidden");document.getElementById("final-next").classList.remove("hidden");
 }
 function nextFinal(){fIndex++;if(fIndex<FINAL_QUESTIONS.length)renderFinal();else{score=fScore;finishLevel();}}

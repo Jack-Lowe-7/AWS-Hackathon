@@ -29,6 +29,7 @@
   <section id="quiz" class="lesson-card hidden">
     <div class="lesson-progress"><span id="quiz-progress"></span></div>
     <div class="question-meta">QUESTION <span id="question-number">1</span> / 5</div>
+    <div id="question-timer" class="question-timer" role="timer" aria-live="polite">1:30</div>
     <h2 id="question-text"></h2>
     <div id="answers" class="answers"></div>
     <div id="feedback" class="feedback hidden"></div>
@@ -58,6 +59,7 @@
   <section id="final-game" class="lesson-card hidden">
     <div class="lesson-progress"><span id="final-progress"></span></div>
     <div class="question-meta">ARCHITECTURE CHECK <span id="final-number">1</span> / 5</div>
+    <div id="question-timer" class="question-timer" role="timer" aria-live="polite">1:30</div>
     <h2 id="final-question"></h2>
     <div id="final-answers" class="answers"></div>
     <div id="final-feedback" class="feedback hidden"></div>
@@ -99,6 +101,8 @@
     <button id="next-question" class="button primary wide hidden" onclick="nextQuestion()">Continue →</button>
   </section>
   {% endif %}
+
+  <audio id="quiz-audio" class="audio-player" src="{{ url_for('audio_file', audio_name='quiz') }}" title="Quiz background music" aria-label="Quiz background music" preload="auto"></audio>
 
   <section id="results" class="lesson-card results hidden">
     <div class="confetti">🎉 ✨ 🎊</div>
