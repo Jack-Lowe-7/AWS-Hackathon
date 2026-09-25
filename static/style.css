@@ -23,3 +23,24 @@ main{max-width:1180px;margin:auto;padding:50px 22px 80px}.hero{display:grid;grid
 @keyframes shake{25%{transform:translateX(-5px)}50%{transform:translateX(5px)}75%{transform:translateX(-3px)}}
 @media(max-width:800px){.topbar{height:auto;min-height:70px;padding:10px 16px;gap:10px;align-items:flex-start}.hud{max-width:60%;gap:5px}.hud-pill{font-size:11px;padding:6px 8px}.hero{grid-template-columns:1fr;gap:25px;padding-top:15px}.hero h1{font-size:58px}.shop-scene{height:290px}.section-heading{align-items:flex-start;gap:15px;flex-direction:column}.map-progress{width:100%}.level-card{grid-template-columns:58px 1fr auto;gap:12px;padding:14px}.level-icon{width:55px;height:55px;font-size:25px}.level-copy h3{font-size:18px}.level-copy p{display:none}.level-state{display:none}.level-start{grid-column:2/4;justify-self:start}.why-card{grid-template-columns:auto 1fr}.mini-stats{grid-column:1/-1;justify-content:flex-start}.concept-grid{grid-template-columns:1fr}.drop-categories{grid-template-columns:1fr 1fr}.lesson-header h1{font-size:32px}.lesson-icon{width:68px;height:68px;font-size:35px}.lesson-card{padding:22px}.reward-row{grid-template-columns:1fr 1fr}.reward-row div:last-child{grid-column:1/-1}}
 @media(max-width:480px){main{padding:30px 14px 60px}.brand{font-size:18px}.hud-pill:nth-child(2){display:none}.hero h1{font-size:49px}.hero p{font-size:16px}.hero-actions{flex-direction:column}.button{width:100%}.shop-scene{height:240px}.store{width:78%;height:145px}.store-window{font-size:24px}.lesson-header{align-items:flex-start}.lesson-header{gap:12px}.lesson-icon{flex:none}.lesson-card h2{font-size:26px}#question-text,#final-question{font-size:24px}.drop-categories{grid-template-columns:1fr}.warehouse-items{flex-direction:column}}
+
+.cloud{animation:cloud-drift 8s ease-in-out infinite}
+.cloud-b{animation-delay:-4s}
+.brand-mark,.store-window,.store-door,.level-icon,.level-state,.why-icon,.lesson-icon{display:inline-block;animation:emoji-bob 2.4s ease-in-out infinite}
+.sun{animation:sun-pulse 3s ease-in-out infinite}
+.delivery{animation:delivery-hop 2.2s ease-in-out infinite}
+.confetti{animation:confetti-pop 2.4s ease-in-out infinite}
+.result-icon{display:inline-block;animation:trophy-bounce 1.8s ease-in-out infinite}
+@keyframes emoji-bob{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-7px) rotate(3deg)}}
+@keyframes cloud-drift{0%,100%{transform:translateX(0)}50%{transform:translateX(18px)}}
+@keyframes sun-pulse{0%,100%{transform:scale(1) rotate(0)}50%{transform:scale(1.12) rotate(8deg)}}
+@keyframes delivery-hop{0%,100%{transform:rotate(-8deg) translateY(0)}50%{transform:rotate(-3deg) translateY(-10px)}}
+@keyframes confetti-pop{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-6px) rotate(2deg)}}
+@keyframes trophy-bounce{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-10px) rotate(4deg)}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+.hud-emoji{display:inline-block;transform-origin:center;animation:hud-pop 2.8s ease-in-out infinite}
+.hud-pill:nth-child(1) .hud-emoji{animation-delay:-.2s}.hud-pill:nth-child(3) .hud-emoji{animation-delay:-.8s}.hud-pill:nth-child(4) .hud-emoji{animation-delay:-1.4s}.hud-pill:nth-child(5) .hud-emoji{animation-delay:-2s}
+@keyframes hud-pop{0%,76%,100%{transform:scale(1) rotate(0)}82%{transform:scale(1.22) rotate(-8deg)}88%{transform:scale(1.08) rotate(7deg)}}
+.emoji{display:inline-block;transform-origin:center;animation:emoji-bounce 2.6s ease-in-out infinite}.emoji-cloud{animation:emoji-cloud-drift 5s ease-in-out infinite}.hero-actions .emoji{animation-delay:-.7s}.map-arrow .emoji{animation-delay:-1.3s}.level-state .emoji{animation-delay:-1.8s}.why-icon .emoji{animation-delay:-2.2s}
+@keyframes emoji-bounce{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-4px) rotate(4deg)}}
+@keyframes emoji-cloud-drift{0%,100%{transform:translateX(0)}50%{transform:translateX(8px)}}

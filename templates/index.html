@@ -3,12 +3,12 @@
 {% block content %}
 <section class="hero">
   <div>
-    <div class="eyebrow">☁️ CLOUD ADVENTURE • BEGINNER FRIENDLY</div>
+    <div class="eyebrow"><span class="emoji emoji-cloud" aria-hidden="true">☁️</span> CLOUD ADVENTURE • BEGINNER FRIENDLY</div>
     <h1>Build your<br><span>online shop.</span></h1>
     <p>Learn AWS by solving problems, earning XP and keeping your fictional store online.</p>
     <div class="hero-actions">
-      <a class="button primary" href="/level/s3">▶ Start Quest</a>
-      <button class="button ghost" onclick="resetGuest()">↻ Reset guest</button>
+      <a class="button primary" href="/level/s3"><span class="emoji" aria-hidden="true">▶</span> Start Quest</a>
+      <button class="button ghost" onclick="resetGuest()"><span class="emoji" aria-hidden="true">↻</span> Reset guest</button>
     </div>
   </div>
   <div class="shop-scene" aria-label="Illustration of an online shop in the cloud">
@@ -40,16 +40,16 @@
         <h3>{{ level.title }}</h3>
         <p>{{ level.description }}</p>
       </div>
-      <div class="level-state" id="state-{{ level.id }}">🔒</div>
+      <div class="level-state" id="state-{{ level.id }}"><span class="emoji" aria-hidden="true">🔒</span></div>
       <a class="level-start" id="start-{{ level.id }}" href="/level/{{ level.id }}">Play</a>
     </article>
-    {% if not loop.last %}<div class="map-arrow">↓</div>{% endif %}
+    {% if not loop.last %}<div class="map-arrow"><span class="emoji" aria-hidden="true">↓</span></div>{% endif %}
     {% endfor %}
   </div>
 </section>
 
 <section class="why-card">
-  <div class="why-icon">🎮</div>
+  <div class="why-icon"><span class="emoji" aria-hidden="true">🎮</span></div>
   <div><h2>Learn by doing</h2><p>Every mistake teaches you why. Every completed challenge moves your shop closer to going live.</p></div>
   <div class="mini-stats"><span>5 AWS services</span><span>30+ challenges</span><span>1 shop</span></div>
 </section>

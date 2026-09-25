@@ -5,7 +5,7 @@
   <a class="back-link" href="/">← Back to map</a>
 
   <section class="lesson-header">
-    <div class="lesson-icon">{{ level.emoji }}</div>
+    <div class="lesson-icon"><span class="emoji emoji-hero" aria-hidden="true">{{ level.emoji }}</span></div>
     <div>
       <span class="eyebrow">LEVEL ADVENTURE</span>
       <h1>{{ level.title }}</h1>
@@ -15,13 +15,13 @@
 
   {% if level.id == "s3" %}
   <section class="lesson-card intro-card">
-    <div class="story-label">📖 SHOP STORY</div>
+    <div class="story-label"><span class="emoji" aria-hidden="true">📖</span> SHOP STORY</div>
     <h2>The Storage Warehouse</h2>
     <p>Your online shop needs somewhere to store product images, receipts, documents and other files.</p>
     <div class="concept-grid">
-      <div><b>🗄️ Object storage</b><span>S3 stores objects such as files and their metadata.</span></div>
-      <div><b>🪣 Buckets</b><span>A bucket is a container for objects.</span></div>
-      <div><b>📦 Objects</b><span>Your product image, receipt or video can be an object.</span></div>
+      <div><b><span class="emoji" aria-hidden="true">🗄️</span> Object storage</b><span>S3 stores objects such as files and their metadata.</span></div>
+      <div><b><span class="emoji" aria-hidden="true">🪣</span> Buckets</b><span>A bucket is a container for objects.</span></div>
+      <div><b><span class="emoji" aria-hidden="true">📦</span> Objects</b><span>Your product image, receipt or video can be an object.</span></div>
     </div>
     <button class="button primary wide" onclick="startQuiz()">I’m ready →</button>
   </section>
@@ -37,20 +37,20 @@
 
   <section id="minigame" class="lesson-card hidden">
     <div class="game-top"><span class="eyebrow">BONUS CHALLENGE</span><span>+20 XP</span></div>
-    <h2>📦 Sort the Warehouse</h2>
+    <h2><span class="emoji" aria-hidden="true">📦</span> Sort the Warehouse</h2>
     <p>Put each shop item in the service that fits its job. Tap an item, then choose a category.</p>
     <div id="warehouse-items" class="warehouse-items"></div>
     <div class="drop-categories">
-      <button class="drop-zone" data-service="s3">🗄️ <b>S3</b><small>Storage</small></button>
-      <button class="drop-zone" data-service="ec2">💻 <b>EC2</b><small>Compute</small></button>
-      <button class="drop-zone" data-service="lambda">⚡ <b>Lambda</b><small>Code / automation</small></button>
-      <button class="drop-zone" data-service="iam">🔐 <b>IAM</b><small>Permissions</small></button>
+      <button class="drop-zone" data-service="s3"><span class="emoji" aria-hidden="true">🗄️</span> <b>S3</b><small>Storage</small></button>
+      <button class="drop-zone" data-service="ec2"><span class="emoji" aria-hidden="true">💻</span> <b>EC2</b><small>Compute</small></button>
+      <button class="drop-zone" data-service="lambda"><span class="emoji" aria-hidden="true">⚡</span> <b>Lambda</b><small>Code / automation</small></button>
+      <button class="drop-zone" data-service="iam"><span class="emoji" aria-hidden="true">🔐</span> <b>IAM</b><small>Permissions</small></button>
     </div>
     <div id="game-message" class="game-message"></div>
   </section>
   {% elif level.id == "final" %}
   <section class="lesson-card intro-card">
-    <div class="story-label">👑 FINAL CHALLENGE</div>
+    <div class="story-label"><span class="emoji" aria-hidden="true">👑</span> FINAL CHALLENGE</div>
     <h2>Build the Shop</h2>
     <p>Assemble the architecture by matching each shop problem to the AWS service that fits.</p>
     <button class="button primary wide" onclick="startFinal()">Build it →</button>
@@ -65,26 +65,26 @@
   </section>
   {% else %}
   <section class="lesson-card intro-card">
-    <div class="story-label">📖 SHOP STORY</div>
+    <div class="story-label"><span class="emoji" aria-hidden="true">📖</span> SHOP STORY</div>
     <h2>{{ level.title.split(" — ")[1] }}</h2>
     <p>{{ level.description }}</p>
     <div class="concept-grid">
       {% if level.id == "ec2" %}
-      <div><b>💻 Compute</b><span>Resources that run application workloads.</span></div>
-      <div><b>🖥️ Virtual servers</b><span>EC2 provides virtual servers called instances.</span></div>
-      <div><b>📈 Scaling</b><span>Adjust capacity as demand changes.</span></div>
+      <div><b><span class="emoji" aria-hidden="true">💻</span> Compute</b><span>Resources that run application workloads.</span></div>
+      <div><b><span class="emoji" aria-hidden="true">🖥️</span> Virtual servers</b><span>EC2 provides virtual servers called instances.</span></div>
+      <div><b><span class="emoji" aria-hidden="true">📈</span> Scaling</b><span>Adjust capacity as demand changes.</span></div>
       {% elif level.id == "iam" %}
-      <div><b>👤 Users & roles</b><span>Identities and roles can be granted permissions.</span></div>
-      <div><b>🛡️ Authorization</b><span>Permissions determine what an identity may do.</span></div>
-      <div><b>🔎 Least privilege</b><span>Give only the access required for the task.</span></div>
+      <div><b><span class="emoji" aria-hidden="true">👤</span> Users & roles</b><span>Identities and roles can be granted permissions.</span></div>
+      <div><b><span class="emoji" aria-hidden="true">🛡️</span> Authorization</b><span>Permissions determine what an identity may do.</span></div>
+      <div><b><span class="emoji" aria-hidden="true">🔎</span> Least privilege</b><span>Give only the access required for the task.</span></div>
       {% elif level.id == "lambda" %}
-      <div><b>⚡ Functions</b><span>Run code without managing the underlying servers.</span></div>
-      <div><b>🎯 Events</b><span>Events can trigger processing.</span></div>
-      <div><b>🔗 Workflows</b><span>For example: S3 → Lambda → process image.</span></div>
+      <div><b><span class="emoji" aria-hidden="true">⚡</span> Functions</b><span>Run code without managing the underlying servers.</span></div>
+      <div><b><span class="emoji" aria-hidden="true">🎯</span> Events</b><span>Events can trigger processing.</span></div>
+      <div><b><span class="emoji" aria-hidden="true">🔗</span> Workflows</b><span>For example: S3 → Lambda → process image.</span></div>
       {% elif level.id == "aurora" %}
-      <div><b>🗃️ Data</b><span>Applications need structured data they can retrieve and update.</span></div>
-      <div><b>📋 Records</b><span>Individual customers and orders can be records.</span></div>
-      <div><b>🔗 Relationships</b><span>Connect related data, such as customers and orders.</span></div>
+      <div><b><span class="emoji" aria-hidden="true">🗃️</span> Data</b><span>Applications need structured data they can retrieve and update.</span></div>
+      <div><b><span class="emoji" aria-hidden="true">📋</span> Records</b><span>Individual customers and orders can be records.</span></div>
+      <div><b><span class="emoji" aria-hidden="true">🔗</span> Relationships</b><span>Connect related data, such as customers and orders.</span></div>
       {% endif %}
     </div>
     <button class="button primary wide" onclick="startQuiz()">Start lesson →</button>
@@ -101,8 +101,8 @@
   {% endif %}
 
   <section id="results" class="lesson-card results hidden">
-    <div class="confetti">🎉 ✨ 🎊</div>
-    <div class="result-icon">🏆</div>
+    <div class="confetti"><span class="emoji" aria-hidden="true">🎉</span> <span class="emoji" aria-hidden="true">✨</span> <span class="emoji" aria-hidden="true">🎊</span></div>
+    <div class="result-icon"><span class="emoji emoji-result" aria-hidden="true">🏆</span></div>
     <span class="eyebrow">QUEST COMPLETE</span>
     <h2 id="result-title">Shop upgraded!</h2>
     <p id="result-copy"></p>
