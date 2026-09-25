@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}AWS Quest — Build Your Online Shop{% endblock %}
+{% block title %}AWS Quest{% endblock %}
 {% block content %}
 <section class="hero">
   <div>
@@ -34,14 +34,76 @@
     <div class="scene-orb orb-one" aria-hidden="true">◆</div>
     <div class="scene-orb orb-two" aria-hidden="true">✦</div>
     <div class="delivery">📦</div>
+<section class="duo-home">
+  <div class="duo-panel">
+
+    <div class="duo-copy">
+      <span class="eyebrow">BUILD CLOUD CONFIDENCE</span>
+      <h1>Learn AWS like a language lesson.</h1>
+      <p>Practice each core service in short, approachable challenges and level up your cloud know-how one concept at a time.</p>
+    </div>
+
+    <div class="hero-actions">
+      <a class="button primary" href="/level/s3">▶ Start Quest</a>
+      <button id="landing-music-toggle" class="button ghost" type="button" onclick="toggleLandingMusic()">♫ Play music</button>
+      <button class="button ghost" onclick="resetGuest()">↻ Reset guest</button>
+    </div>
+
+    <div class="mini-stats">
+      <div class="stat-box">
+        <strong>5</strong>
+        <span>services</span>
+      </div>
+      <div class="stat-box">
+        <strong>30+</strong>
+        <span>challenges</span>
+      </div>
+      <div class="stat-box">
+        <strong>1</strong>
+        <span>shop</span>
+      </div>
+    </div>
   </div>
+
+  <aside class="duo-preview">
+    <div class="preview-top">
+      <span class="preview-badge">Today's goal</span>
+      <span class="preview-score">52% XP</span>
+    </div>
+
+    <div class="preview-card">
+      <div class="preview-emoji">☁️</div>
+      <div class="preview-copy">
+        <h3>S3 Storage Basics</h3>
+        <p>Upload, store, and retrieve data with confidence.</p>
+      </div>
+      <a class="lesson-chip" href="/level/s3">Play</a>
+    </div>
+
+    <div class="lesson-list">
+      <div class="lesson-item active">
+        <span class="dot green"></span>
+        <span>Cloud concepts</span>
+      </div>
+      <div class="lesson-item">
+        <span class="dot yellow"></span>
+        <span>Storage</span>
+      </div>
+      <div class="lesson-item">
+        <span class="dot blue"></span>
+        <span>Compute</span>
+      </div>
+    </div>
+  </aside>
 </section>
+
+<audio id="landing-audio" class="audio-player" src="{{ url_for('audio_file', audio_name='lobby') }}" title="Landing page music" aria-label="Landing page music" autoplay loop preload="auto"></audio>
 
 <section class="quest-section">
   <div class="section-heading">
     <div>
       <span class="eyebrow">YOUR ADVENTURE</span>
-      <h2>AWS Quest Map</h2>
+      <h2>Course map</h2>
     </div>
     <div class="map-progress"><span id="map-progress-bar"></span></div>
   </div>
@@ -66,7 +128,7 @@
 <section class="why-card">
   <div class="why-icon"><span class="emoji" aria-hidden="true">🎮</span></div>
   <div><h2>Learn by doing</h2><p>Every mistake teaches you why. Every completed challenge moves your shop closer to going live.</p></div>
-  <div class="mini-stats"><span>5 AWS services</span><span>30+ challenges</span><span>1 shop</span></div>
+  <div class="mini-stats compact"><span>5 AWS services</span><span>30+ challenges</span><span>1 shop</span></div>
 </section>
 {% endblock %}
 {% block scripts %}

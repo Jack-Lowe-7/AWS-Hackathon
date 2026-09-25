@@ -103,6 +103,8 @@
   </section>
   {% endif %}
 
+  <audio id="quiz-audio" class="audio-player" src="{{ url_for('audio_file', audio_name='quiz') }}" title="Quiz background music" aria-label="Quiz background music" preload="auto"></audio>
+
   <section id="results" class="lesson-card results hidden">
     <div class="confetti"><span class="emoji" aria-hidden="true">🎉</span> <span class="emoji" aria-hidden="true">✨</span> <span class="emoji" aria-hidden="true">🎊</span></div>
     <div class="result-icon"><span class="emoji emoji-result" aria-hidden="true">🏆</span></div>
