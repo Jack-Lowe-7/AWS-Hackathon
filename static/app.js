@@ -1,6 +1,23 @@
 const PLAYER_KEY = "awsquest_player_id";
 const PLAYER_STATE_KEY = "awsquest_guest_state";
 
+function enableSceneDepth() {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  document.querySelectorAll(".shop-scene").forEach(scene => {
+    scene.addEventListener("pointermove", event => {
+      const bounds = scene.getBoundingClientRect();
+      const x = (event.clientX - bounds.left) / bounds.width - 0.5;
+      const y = (event.clientY - bounds.top) / bounds.height - 0.5;
+      scene.style.transform = `perspective(900px) rotateX(${y * -5}deg) rotateY(${x * 7}deg)`;
+    });
+    scene.addEventListener("pointerleave", () => {
+      scene.style.transform = "";
+    });
+  });
+}
+
+document.addEventListener("DOMContentLoaded", enableSceneDepth);
+
 function playerId() {
   let id = localStorage.getItem(PLAYER_KEY);
   if (!id) {
