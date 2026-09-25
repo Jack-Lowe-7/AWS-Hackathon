@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, abort, jsonify, render_template, request, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from datetime import date
 
@@ -112,6 +112,11 @@ FINAL_QUESTIONS = [
     ("Where can application data be stored?", "Amazon Aurora DSQL"),
 ]
 
+AUDIO_FILES = {
+    "lobby": "Beatbox Lobby Theme.mp3",
+    "quiz": "In Game Music (90 Second Countdown).mp3",
+}
+
 
 def get_player(player_id):
     player = PlayerProgress.query.filter_by(player_id=player_id).first()
@@ -125,6 +130,14 @@ def get_player(player_id):
 @app.get("/")
 def index():
     return render_template("index.html", levels=LEVELS)
+
+
+@app.get("/audio/<audio_name>")
+def audio_file(audio_name):
+    filename = AUDIO_FILES.get(audio_name)
+    if not filename:
+        abort(404)
+    return send_from_directory(app.root_path, filename, mimetype="audio/mpeg", conditional=True)
 
 
 @app.get("/level/<level_id>")
